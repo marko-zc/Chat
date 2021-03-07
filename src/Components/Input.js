@@ -1,10 +1,14 @@
 import React from "react";
 
+
 class Input extends React.Component
 {
-  state = {
-    text: ""
-  }
+    state = {
+      text: ""
+    }
+  
+    textInput = React.createRef();
+
 
   onChange(e) {
     this.setState({text: e.target.value});
@@ -14,6 +18,8 @@ class Input extends React.Component
     e.preventDefault();
     this.setState({text: ""});
     this.props.onSendMessage(this.state.text);
+    this.textInput.current.focus();
+
   }
 
   render() {
@@ -21,11 +27,12 @@ class Input extends React.Component
       <div className="Input">
         <form onSubmit={e => this.onSubmit(e)}>
           <input
+            ref={this.textInput}
             onChange={e => this.onChange(e)}
             value={this.state.text}
             type="text"
             placeholder="Enter your message and press ENTER"
-            autofocus="true"
+            autoFocus={true}
           />
           <button>Send</button>
         </form>

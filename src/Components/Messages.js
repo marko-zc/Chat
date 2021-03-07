@@ -3,6 +3,18 @@ import React from "react";
 class Messages extends React.Component
 {
 
+  messagesEnd = React.createRef();
+
+  componentDidMount () {
+    this.scrollToBottom()
+  }
+  componentDidUpdate () {
+    this.scrollToBottom()
+  }
+  scrollToBottom = () => {
+    this.messagesEnd.current.scrollIntoView({ behavior: 'smooth' })
+  }
+
   renderMessage(message) {
     const {member, text} = message;
     const {currentMember} = this.props;
@@ -30,6 +42,7 @@ class Messages extends React.Component
     return (
       <ul className="Messages-list">
         {messages.map(m => this.renderMessage(m))}
+        <div ref={this.messagesEnd} />
       </ul>
     );
   }
